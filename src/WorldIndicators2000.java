@@ -18,15 +18,13 @@ public class WorldIndicators2000 {
     // private double value;
     private String countryName;
     private double infantMortalityRate;
-    private int lifeExpectancy;
     private int co2Emissions;
 
 
     // TODO: Create a constructor that takes all attributes as parameters
-    public WorldIndicators2000(String newCountryName, double newInfantMortalityRate, int newLifeExpectancy, int newCo2Emissions) {
+    public WorldIndicators2000(String newCountryName, double newInfantMortalityRate, int newCo2Emissions) {
         this.countryName = newCountryName;
         this.infantMortalityRate = newInfantMortalityRate;
-        this.lifeExpectancy = newLifeExpectancy;
         this.co2Emissions = newCo2Emissions;
     }
 
@@ -40,16 +38,12 @@ public class WorldIndicators2000 {
         return this.infantMortalityRate;
     }
 
-    public int getLifeExpectancy() {
-        return this.lifeExpectancy;
-    }
-
     public int getCo2Emissions() {
         return this.co2Emissions;
     }
 
     // TODO: Add other data analysis methods
-    public double averageInfantMortalityOfHigh(WorldIndicators2000[] dataList) {
+    public static double averageInfantMortalityOfHigh(WorldIndicators2000[] dataList) {
         int emissionsLimit = 100000;
         int numCountries = 0;
         double totalInfantMortality = 0.0;
@@ -62,7 +56,7 @@ public class WorldIndicators2000 {
         return totalInfantMortality / numCountries;
     }
 
-    public double averageInfantMortalityOfLow(WorldIndicators2000[] dataList) {
+    public static double averageInfantMortalityOfLow(WorldIndicators2000[] dataList) {
         int emissionsLimit = 100000;
         int numCountries = 0;
         double totalInfantMortality = 0.0;
@@ -75,37 +69,21 @@ public class WorldIndicators2000 {
         return totalInfantMortality / numCountries;
     }
 
-    public double averageLifeExpectancyOfHigh(WorldIndicators2000[] dataList) {
-        int emissionsLimit = 100000;
-        int numCountries = 0;
-        double totalLifeExpectancy = 0.0;
-        for (int i = 0; i < dataList.length; i++) {
-            if (dataList[i].getCo2Emissions() >= emissionsLimit) {
-                numCountries++;
-                totalLifeExpectancy += dataList[i].getLifeExpectancy();
-            }
+    public static double compareAverages(double highAverage, double lowAverage) {
+        if (highAverage > lowAverage) {
+            return highAverage - lowAverage;
+        } 
+        
+        else {
+            return lowAverage - highAverage;
         }
-        return totalLifeExpectancy / numCountries;
     }
 
-    public double averageLifeExpectancyOfLow(WorldIndicators2000[] dataList) {
-        int emissionsLimit = 100000;
-        int numCountries = 0;
-        double totalLifeExpectancy = 0.0;
-        for (int i = 0; i < dataList.length; i++) {
-            if (dataList[i].getCo2Emissions() < emissionsLimit) {
-                numCountries++;
-                totalLifeExpectancy += dataList[i].getLifeExpectancy();
-            }
-        }
-        return totalLifeExpectancy / numCountries;
-    }
-
-
+    
     // TODO: Override toString() to return a readable representation of your object
     @Override
     public String toString() {
-        return "Country: " + this.countryName + ", Infant Mortality Rate: " + this.infantMortalityRate + ", Life Expectancy: " + this.lifeExpectancy + ", CO2 Emissions: " + this.co2Emissions;
+        return "Country: " + this.countryName + ", Infant Mortality Rate: " + this.infantMortalityRate + ", CO2 Emissions: " + this.co2Emissions;
     }
 
 }

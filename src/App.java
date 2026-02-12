@@ -1,4 +1,6 @@
 import java.io.File;
+import java.io.IOException;
+import java.util.Scanner;
 
 /**
  * Main application for the Data Analysis Mini‑Project.
@@ -15,13 +17,14 @@ import java.io.File;
  */
 public class App {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        System.out.println("Guiding Question: Do countries with higher CO2 emissions have higher infant mortality rates?");
 
         // TODO: Update this with your CSV file path
-        File file = new File("WorldIndicators2000.csv");
+        File file = new File("data/WorldIndicators2000.csv");
 
         // TODO: Create an array of Data objects to store data
-        String[] dataList = new String[2704];
+        WorldIndicators2000[] dataList = new WorldIndicators2000[2704];
 
 
         // TODO: Read file using Scanner
@@ -37,13 +40,13 @@ public class App {
             // - Convert text to numbers when needed
             String countryName = data[0];
             double infantMortalityRate = Double.parseDouble(data[12]);
-            int lifeExpectancy = Integer.parseInt(data[2]);
             int co2Emissions = Integer.parseInt(data[4]);
             // - Create new Data objects
-            WorldIndicators2000 dataObject = new WorldIndicators2000(countryName, infantMortalityRate, lifeExpectancy, co2Emissions);
-            dataList[index] = dataObject.toString();
+            WorldIndicators2000 dataObject = new WorldIndicators2000(countryName, infantMortalityRate, co2Emissions);
+            dataList[index] = dataObject;
             index++;
         }
+        input.close();
         // - Add to your array
 
 
@@ -51,12 +54,27 @@ public class App {
         // Example:
         // double maxValue = findMaxValue(dataList);
         // double average = computeAverageValue(dataList);
+        double averageHigh = WorldIndicators2000.averageInfantMortalityOfHigh(dataList);
+        double averageLow = WorldIndicators2000.averageInfantMortalityOfLow(dataList);
+        double difference = WorldIndicators2000.compareAverages(averageHigh, averageLow);
+
 
 
         // TODO: Print insights
         // - Number of rows loaded
         // - Min, max, average, or any other findings
         // - Final answer to your guiding question
+        System.out.println("Number of rows loaded: " + index);
+        System.out.println("Average infant mortality rate for high CO2 emissions: " + averageHigh);
+        System.out.println("Average infant mortality rate for low CO2 emissions: " + averageLow);
+        System.out.println("Difference between averages: " + difference);
+        if (averageHigh > averageLow) {
+            System.out.println("Final Answer: Countries with higher CO2 emissions tend to have higher infant mortality rates.");
+        } else if (averageLow > averageHigh) {
+            System.out.println("Final Answer: Countries with lower CO2 emissions tend to have higher infant mortality rates.");
+        } else {
+            System.out.println("Final Answer: There is no difference in infant mortality rates between high and low CO2 emission countries.");
+        }
 
 
         // OPTIONAL TODO:
