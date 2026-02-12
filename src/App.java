@@ -39,6 +39,10 @@ public class App {
             // - Split each line by commas
             // - Convert text to numbers when needed
             String countryName = data[0];
+            // Skip rows with missing data
+            if (data[12].isEmpty() || data[4].isEmpty()) {
+                continue;
+            }
             double infantMortalityRate = Double.parseDouble(data[12]);
             int co2Emissions = Integer.parseInt(data[4]);
             // - Create new Data objects
