@@ -18,17 +18,32 @@ public class App {
     public static void main(String[] args) {
 
         // TODO: Update this with your CSV file path
-        File file = new File("data/your_dataset.csv");
+        File file = new File("WorldIndicators2000.csv");
 
         // TODO: Create an array of Data objects to store data
+        String[] dataList = new String[2704];
 
 
         // TODO: Read file using Scanner
+        Scanner input = new Scanner(file);
         // - Skip header if needed
+        input.nextLine();
         // - Loop through rows
-        // - Split each line by commas
-        // - Convert text to numbers when needed
-        // - Create new Data objects
+        int index = 0;
+        while (input.hasNextLine()) {
+            String line = input.nextLine();
+            String[] data = line.split(",");
+            // - Split each line by commas
+            // - Convert text to numbers when needed
+            String countryName = data[0];
+            double infantMortalityRate = Double.parseDouble(data[12]);
+            int lifeExpectancy = Integer.parseInt(data[2]);
+            int co2Emissions = Integer.parseInt(data[4]);
+            // - Create new Data objects
+            WorldIndicators2000 dataObject = new WorldIndicators2000(countryName, infantMortalityRate, lifeExpectancy, co2Emissions);
+            dataList[index] = dataObject.toString();
+            index++;
+        }
         // - Add to your array
 
 
