@@ -18,14 +18,14 @@ public class WorldIndicators2000 {
     // private double value;
     private String countryName;
     private double infantMortalityRate;
-    private int co2Emissions;
+    private double co2Emissions;
 
 
     // TODO: Create a constructor that takes all attributes as parameters
-    public WorldIndicators2000(String newCountryName, double newInfantMortalityRate, int newCo2Emissions) {
+    public WorldIndicators2000(String newCountryName, double newInfantMortalityRate, double co2Emissions2) {
         this.countryName = newCountryName;
         this.infantMortalityRate = newInfantMortalityRate;
-        this.co2Emissions = newCo2Emissions;
+        this.co2Emissions = co2Emissions2;
     }
 
 
@@ -38,7 +38,7 @@ public class WorldIndicators2000 {
         return this.infantMortalityRate;
     }
 
-    public int getCo2Emissions() {
+    public double getCo2Emissions() {
         return this.co2Emissions;
     }
 
@@ -48,6 +48,7 @@ public class WorldIndicators2000 {
         int numCountries = 0;
         double totalInfantMortality = 0.0;
         for (int i = 0; i < dataList.length; i++) {
+            if (dataList[i] == null) continue;            // skip empty slots
             if (dataList[i].getCo2Emissions() >= emissionsLimit) {
                 numCountries++;
                 totalInfantMortality += dataList[i].getInfantMortalityRate();
@@ -61,6 +62,7 @@ public class WorldIndicators2000 {
         int numCountries = 0;
         double totalInfantMortality = 0.0;
         for (int i = 0; i < dataList.length; i++) {
+            if (dataList[i] == null) continue;            // skip empty slots
             if (dataList[i].getCo2Emissions() < emissionsLimit) {
                 numCountries++;
                 totalInfantMortality += dataList[i].getInfantMortalityRate();

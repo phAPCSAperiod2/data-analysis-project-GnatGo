@@ -44,7 +44,7 @@ public class App {
                 continue;
             }
             double infantMortalityRate = Double.parseDouble(data[12]);
-            int co2Emissions = Integer.parseInt(data[4]);
+            double co2Emissions = Double.parseDouble(data[4]);
             // - Create new Data objects
             WorldIndicators2000 dataObject = new WorldIndicators2000(countryName, infantMortalityRate, co2Emissions);
             dataList[index] = dataObject;
